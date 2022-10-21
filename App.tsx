@@ -55,6 +55,26 @@ function App() {
     db.executeAsync(selectAll).then(res => console.log('RES', res.rows));
   }
 
+  type insertInput = {personName: string; dogName: string};
+
+  function insert({personName, dogName}: insertInput) {
+    if (!db) return;
+    if (!migrated) return;
+
+    db.transactionAsync(tx =>
+      tx
+        .executeAsync('insert into people (name) values (?)', [personName])
+        .then(res =>
+          tx.executeAsync('insert into dogs (person_id, name) values (?, ?)', [
+            res.insertId,
+            dogName,
+          ]),
+        )
+        .then(() => Promise.resolve()) // without this, there's a type error that feels weird: Type 'Promise<void | QueryResult>' is not assignable to type 'Promise<void>'.
+        .catch(e => console.log('ERROR', e)),
+    );
+  }
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#222222'}}>
       <View style={{flex: 1, justifyContent: 'center'}}>
@@ -70,6 +90,13 @@ function App() {
           style={{padding: 16, marginVertical: 8}}>
           <Text style={{color: '#dddddd', textAlign: 'center'}}>
             Log database contents to console
+          </Text>
+        </Button>
+        <Button
+          onPress={() => insert({personName: 'Kirsten', dogName: 'Sam'})}
+          style={{padding: 16, marginVertical: 8}}>
+          <Text style={{color: '#dddddd', textAlign: 'center'}}>
+            Insert a person and dog for that person
           </Text>
         </Button>
       </View>
