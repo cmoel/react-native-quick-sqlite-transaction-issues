@@ -5678,6 +5678,11 @@ react-native-gradle-plugin@^0.70.3:
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.70.3.tgz#cbcf0619cbfbddaa9128701aa2d7b4145f9c4fc8"
   integrity sha512-oOanj84fJEXUg9FoEAQomA8ISG+DVIrTZ3qF7m69VQUJyOGYyDZmPqKcjvRku4KXlEH6hWO9i4ACLzNBh8gC0A==
 
+react-native-quick-sqlite@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-quick-sqlite/-/react-native-quick-sqlite-5.0.1.tgz#5baa69c9066322decb48bdb5f002644215ba5414"
+  integrity sha512-OldfFI5UawcRV1NGYBG1316f1ri02tzv7keTJiNoKV2vgMHpWjG39B8fhZTbLU2b3bu++rjSZd5hb+ExrSyHxw==
+
 react-native@0.70.3:
   version "0.70.3"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.70.3.tgz#a5315ce14dd3f51f9ef97827af5b0a470ade1d9c"

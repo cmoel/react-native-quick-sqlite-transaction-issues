@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "react": "18.1.0",
-    "react-native": "0.70.3"
+    "react-native": "0.70.3",
+    "react-native-quick-sqlite": "^5.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
