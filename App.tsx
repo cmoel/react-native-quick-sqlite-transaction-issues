@@ -75,6 +75,24 @@ function App() {
     );
   }
 
+  function failToInsert({personName, dogName}: insertInput) {
+    if (!db) return;
+    if (!migrated) return;
+
+    db.transactionAsync(tx =>
+      tx
+        .executeAsync('insert into people (name) values (?)', [personName])
+        .then(res =>
+          tx.executeAsync(
+            'insert into this_table_does_not_exist_and_will_throw_an_error (person_id, name) values (?, ?)',
+            [res.insertId, dogName],
+          ),
+        )
+        .then(() => Promise.resolve()) // without this, there's a type error that feels weird: Type 'Promise<void | QueryResult>' is not assignable to type 'Promise<void>'.
+        .catch(e => console.log('ERROR', e)),
+    );
+  }
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#222222'}}>
       <View style={{flex: 1, justifyContent: 'center'}}>
@@ -97,6 +115,13 @@ function App() {
           style={{padding: 16, marginVertical: 8}}>
           <Text style={{color: '#dddddd', textAlign: 'center'}}>
             Insert a person and dog for that person
+          </Text>
+        </Button>
+        <Button
+          onPress={() => failToInsert({personName: 'Kirsten', dogName: 'Sam'})}
+          style={{padding: 16, marginVertical: 8}}>
+          <Text style={{color: 'red', textAlign: 'center'}}>
+            Cause an error while in a SQL transaction
           </Text>
         </Button>
       </View>
