@@ -74,7 +74,12 @@ function App() {
           ]),
         )
         .then(() => Promise.resolve()) // without this, there's a type error that feels weird: Type 'Promise<void | QueryResult>' is not assignable to type 'Promise<void>'.
-        .catch(e => console.log('ERROR', e)),
+        .catch(e =>
+          console.log(
+            "this will never be logged to the console because it isn't ever hit",
+            e,
+          ),
+        ),
     );
   }
 
@@ -95,7 +100,12 @@ function App() {
           ),
         )
         .then(() => Promise.resolve()) // without this, there's a type error that feels weird: Type 'Promise<void | QueryResult>' is not assignable to type 'Promise<void>'.
-        .catch(e => console.log('ERROR', e)),
+        .catch(e =>
+          console.log(
+            "this will never be logged to the console because it isn't ever hit",
+            e,
+          ),
+        ),
     );
   }
 
