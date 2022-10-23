@@ -109,27 +109,33 @@ function App() {
             Migrate database up
           </Text>
         </Button>
-        <Button
-          onPress={() => printDatabaseContents()}
-          style={{padding: 16, marginVertical: 8}}>
-          <Text style={{color: '#dddddd', textAlign: 'center'}}>
-            Log database contents to console
-          </Text>
-        </Button>
-        <Button
-          onPress={() => insert({personName: 'Kirsten', dogName: 'Sam'})}
-          style={{padding: 16, marginVertical: 8}}>
-          <Text style={{color: '#dddddd', textAlign: 'center'}}>
-            Insert a person and dog for that person
-          </Text>
-        </Button>
-        <Button
-          onPress={() => failToInsert({personName: 'Kirsten', dogName: 'Sam'})}
-          style={{padding: 16, marginVertical: 8}}>
-          <Text style={{color: 'red', textAlign: 'center'}}>
-            Cause an error while in a SQL transaction
-          </Text>
-        </Button>
+        {migrated && (
+          <>
+            <Button
+              onPress={() => printDatabaseContents()}
+              style={{padding: 16, marginVertical: 8}}>
+              <Text style={{color: '#dddddd', textAlign: 'center'}}>
+                Log database contents to console
+              </Text>
+            </Button>
+            <Button
+              onPress={() => insert({personName: 'Kirsten', dogName: 'Sam'})}
+              style={{padding: 16, marginVertical: 8}}>
+              <Text style={{color: '#dddddd', textAlign: 'center'}}>
+                Insert a person and dog for that person
+              </Text>
+            </Button>
+            <Button
+              onPress={() =>
+                failToInsert({personName: 'Kirsten', dogName: 'Sam'})
+              }
+              style={{padding: 16, marginVertical: 8}}>
+              <Text style={{color: 'red', textAlign: 'center'}}>
+                Cause an error while in a SQL transaction
+              </Text>
+            </Button>
+          </>
+        )}
       </View>
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <Text style={{color: '#cccccc'}}>
