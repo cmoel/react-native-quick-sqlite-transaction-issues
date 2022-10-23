@@ -42,7 +42,10 @@ function App() {
 
   function printDatabaseContents() {
     if (!db) return;
-    if (!migrated) return;
+    if (!migrated) {
+      console.log('Please click Migrate database up first!');
+      return;
+    }
 
     let selectAll = `select
                        people.id as person_id,
@@ -77,7 +80,10 @@ function App() {
 
   function failToInsert({personName, dogName}: insertInput) {
     if (!db) return;
-    if (!migrated) return;
+    if (!migrated) {
+      console.log('Please click Migrate database up first!');
+      return;
+    }
 
     db.transactionAsync(tx =>
       tx
