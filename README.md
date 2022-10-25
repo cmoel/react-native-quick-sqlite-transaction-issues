@@ -9,7 +9,7 @@ been built for iOS and doesn't concern itself with Android.
 This project uses yarn and requires explicitly calling `pod install`:
 
 1. Clone the repo and `cd` into the directory,
-1. `npm install`,
+1. `yarn install`,
 1. `cd ios && bundle install && bundle exec pod install; cd ..`, and
 1. `yarn ios`.
 
