@@ -53,7 +53,7 @@ function App() {
                        people.name as person,
                        dogs.name as dog
                      from people
-                     inner join dogs
+                     left outer join dogs
                        on people.id = dogs.person_id`;
     db.executeAsync(selectAll).then(res => console.log('RES', res.rows));
   }
