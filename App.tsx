@@ -75,7 +75,7 @@ function App() {
         )
         .catch(e =>
           console.log(
-            "this will never be logged to the console because it isn't ever hit",
+            'this will never be logged because the transaction will succeed',
             e,
           ),
         ),
@@ -100,7 +100,7 @@ function App() {
         )
         .catch(e =>
           console.log(
-            "this will never be logged to the console because it isn't ever hit",
+            'this error is caught and the transaction will be rolled back',
             e,
           ),
         ),
