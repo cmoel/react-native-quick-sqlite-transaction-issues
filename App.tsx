@@ -73,7 +73,6 @@ function App() {
             dogName,
           ]),
         )
-        .then(() => Promise.resolve()) // without this, there's a type error that feels weird: Type 'Promise<void | QueryResult>' is not assignable to type 'Promise<void>'.
         .catch(e =>
           console.log(
             "this will never be logged to the console because it isn't ever hit",
@@ -99,7 +98,6 @@ function App() {
             [res.insertId, dogName],
           ),
         )
-        .then(() => Promise.resolve()) // without this, there's a type error that feels weird: Type 'Promise<void | QueryResult>' is not assignable to type 'Promise<void>'.
         .catch(e =>
           console.log(
             "this will never be logged to the console because it isn't ever hit",
