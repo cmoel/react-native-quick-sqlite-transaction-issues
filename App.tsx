@@ -64,22 +64,33 @@ function App() {
     if (!db) return;
     if (!migrated) return;
 
-    db.transactionAsync(tx =>
-      tx
-        .executeAsync('insert into people (name) values (?)', [personName])
-        .then(res =>
-          tx.executeAsync('insert into dogs (person_id, name) values (?, ?)', [
-            res.insertId,
-            dogName,
-          ]),
-        )
-        .catch(e =>
-          console.log(
-            'this will never be logged because the transaction will succeed',
-            e,
-          ),
-        ),
-    );
+    let insertedRecords = `select
+                             people.id as person_id,
+                             dogs.id as dog_id,
+                             people.name as person,
+                             dogs.name as dog
+                          from people
+                          inner join dogs
+                            on people.id = dogs.person_id
+                          where people.id = ?`;
+
+    db.transactionAsync(tx => {
+      let insertPerson = tx.executeAsync(
+        'insert into people (name) values (?)',
+        [personName],
+      );
+      let insertDog = insertPerson.then(personInsertionResult =>
+        tx.executeAsync('insert into dogs (person_id, name) values (?, ?)', [
+          personInsertionResult.insertId,
+          dogName,
+        ]),
+      );
+      return Promise.all([insertPerson, insertDog]).then(([res1, _res2]) =>
+        tx
+          .executeAsync(insertedRecords, [res1.insertId])
+          .then(res => console.log(res.rows._array)),
+      );
+    });
   }
 
   function failToInsert({personName, dogName}: insertInput) {
