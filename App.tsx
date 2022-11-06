@@ -109,12 +109,13 @@ function App() {
             [res.insertId, dogName],
           ),
         )
-        .catch(e =>
+        .catch(e => {
           console.log(
             'this error is caught and the transaction will be rolled back',
             e,
-          ),
-        ),
+          );
+          tx.rollback();
+        }),
     );
   }
 
